@@ -14,9 +14,14 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
     [SerializeField]
     private NetworkPrefabRef playerPrefabRef;
 
+    [SerializeField]
+    private NetworkPrefabRef characterSelectionScreenPref;
+
     private Dictionary<PlayerRef, NetworkObject> spawnedCharacters = new Dictionary<PlayerRef, NetworkObject>();
 
     private NetworkRunner runner;
+
+    private CharacterSelectionScreen characterSelectionScreen;
 
     private void Start()
     {
@@ -41,6 +46,18 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
 
         // Use to make session not joinable when in game:
         // runner.SessionInfo.IsOpen = false;
+    }
+
+    private IEnumerator timerCountDown()
+    {
+        int timer = 120;
+
+        while (timer > 0)
+        {
+            yield return new WaitForSeconds(1);
+            timer--;
+            characterSelectionScreen.callUpdateTimer(timer);
+        }
     }
 
     public void OnConnectedToServer(NetworkRunner runner)
@@ -75,12 +92,7 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
 
     public void OnInput(NetworkRunner runner, NetworkInput input)
     {
-        var data = new NetworkInputData();
 
-        data.direction.y = Input.GetAxis("Vertical");
-        data.direction.x = Input.GetAxis("Horizontal");
-
-        input.Set(data);
     }
 
     public void OnInputMissing(NetworkRunner runner, PlayerRef player, NetworkInput input)
@@ -91,9 +103,20 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
     public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
     {
         if (runner.LocalPlayer == player)
-        {
+        {   
             NetworkObject networkPlayerObject = runner.Spawn(playerPrefabRef, Vector2.zero, Quaternion.identity, runner.LocalPlayer);
             spawnedCharacters.Add(player, networkPlayerObject);
+        }
+
+        if (runner.SessionInfo.PlayerCount == 1)
+        {
+            print("count down started");
+            NetworkObject networkedCharacterSelection = runner.Spawn(characterSelectionScreenPref, Vector2.zero, Quaternion.identity, runner.LocalPlayer);
+            characterSelectionScreen = networkedCharacterSelection.GetComponent<CharacterSelectionScreen>();
+            StartCoroutine(timerCountDown());
+        } else
+        {
+            print(runner.SessionInfo.PlayerCount);
         }
     }
 
