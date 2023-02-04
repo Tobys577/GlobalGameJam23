@@ -139,6 +139,15 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
         }
     }
 
+    [ContextMenu("Spawn Player")]
+    public void SpawnPlayer()
+    {
+        NetworkObject networkPlayerObject = runner.Spawn(playerPrefabRef, Vector2.zero, Quaternion.identity, runner.LocalPlayer);
+        spawnedCharacters.Add(runner.LocalPlayer, networkPlayerObject);
+
+        characterSelectionScreen.gameObject.SetActive(false);
+    }
+
     public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
     {
         if (spawnedCharacters.TryGetValue(player, out NetworkObject outedNetworkObject))

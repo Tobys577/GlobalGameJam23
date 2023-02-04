@@ -26,10 +26,21 @@ public class CharacterSelectionScreen : NetworkBehaviour
     private Character[] characters;
 
     [SerializeField]
+    private Button lockInButton;
+
+    [SerializeField]
     private CharacterSelectionIcon[] attackIcons;
 
     [SerializeField]
     private CharacterSelectionIcon[] defenceIcons;
+
+    private BasicSpawner basicSpawner;
+
+    public void Start()
+    {
+        basicSpawner = GameObject.Find("BasicSpawner").GetComponent<BasicSpawner>();
+        lockInButton.onClick.AddListener(basicSpawner.SpawnPlayer);
+    }
 
     public void callUpdateTimer(int time)
     {
