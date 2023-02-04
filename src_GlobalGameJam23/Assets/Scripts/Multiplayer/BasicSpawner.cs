@@ -113,11 +113,8 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
 
     public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
     {
-<<<<<<< HEAD
         connectingObj.SetActive(false);
 
-=======
->>>>>>> main
         if (runner.SessionInfo.PlayerCount == 1)
         {
             print("count down started");
