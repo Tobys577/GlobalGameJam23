@@ -67,6 +67,11 @@ public class CharacterSelectionScreen : NetworkBehaviour
         characterID = selectedCharacter;
     }
 
+    public void skip()
+    {
+        basicSpawner.timer = 0;
+    }
+
     public void lockInCharacter()
     {
         if (characterID != -1)

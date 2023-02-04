@@ -28,6 +28,8 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
 
     private CharacterSelectionScreen characterSelectionScreen;
 
+    [HideInInspector] public int timer = 120;
+
     private Dictionary<int, KeyValuePair<bool, int>> playerCountDict = new Dictionary<int, KeyValuePair<bool, int>>()
     {
         { 1, new KeyValuePair<bool, int>(true, 0) },
@@ -71,7 +73,7 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
 
     private IEnumerator timerCountDown()
     {
-        int timer = 120;
+        timer = 120;
 
         while (timer > 0)
         {
