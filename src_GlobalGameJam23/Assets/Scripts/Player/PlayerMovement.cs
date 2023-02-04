@@ -10,10 +10,16 @@ public class PlayerMovement : NetworkBehaviour
     private Vector3 mousePos;
     private NetworkObject networkObject;
     private Rigidbody2D rb;
+
+    private Camera mainCamera;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         networkObject = GetComponent<NetworkObject>();
+
+        mainCamera = FindObjectOfType<Camera>();
+
         fieldOfView = GameObject.Find("FieldOfView").GetComponent<FieldOfView>();
     }
 
@@ -22,10 +28,11 @@ public class PlayerMovement : NetworkBehaviour
         if (networkObject.HasInputAuthority)
         {
             rb.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, Input.GetAxis("Vertical") * speed);
+
+            faceMouse();
+            //fieldOfView.SetDirection(transform.up);
+            //fieldOfView.SetOrigin(transform.position);
         }
-        faceMouse();
-        fieldOfView.SetDirection(transform.up);
-        fieldOfView.SetOrigin(transform.position);
     }
 
     float AngleBetweenTwoPoints(Vector3 a, Vector3 b)
@@ -36,9 +43,9 @@ public class PlayerMovement : NetworkBehaviour
     void faceMouse()
     {
         mousePos = Input.mousePosition;
-        mousePos = Camera.main.ScreenToWorldPoint(mousePos);
+        mousePos = mainCamera.ScreenToWorldPoint(mousePos);
         Vector2 direction = new Vector2(mousePos.x - transform.position.x, mousePos.y - transform.position.y);
+        direction.Normalize();
         transform.up = direction;
-
     }
 }
