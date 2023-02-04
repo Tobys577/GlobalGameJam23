@@ -17,6 +17,9 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
     [SerializeField]
     private NetworkPrefabRef characterSelectionScreenPref;
 
+    [SerializeField]
+    private GameObject connectingObj;
+
     private Dictionary<PlayerRef, NetworkObject> spawnedCharacters = new Dictionary<PlayerRef, NetworkObject>();
 
     private NetworkRunner runner;
@@ -25,12 +28,18 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
 
     private void Start()
     {
-        // Start game in shared mode to be similar to PUN
+        StartGame();
+    }
+
+    public void StartGame()
+    {
         StartGame(GameMode.Shared);
     }
 
     private async void StartGame(GameMode mode)
     {
+        connectingObj.SetActive(true);
+
         runner = gameObject.AddComponent<NetworkRunner>();
         runner.ProvideInput = true;
 
@@ -62,51 +71,47 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
 
     public void OnConnectedToServer(NetworkRunner runner)
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 
     public void OnConnectFailed(NetworkRunner runner, NetAddress remoteAddress, NetConnectFailedReason reason)
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 
     public void OnConnectRequest(NetworkRunner runner, NetworkRunnerCallbackArgs.ConnectRequest request, byte[] token)
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 
     public void OnCustomAuthenticationResponse(NetworkRunner runner, Dictionary<string, object> data)
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 
     public void OnDisconnectedFromServer(NetworkRunner runner)
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 
     public void OnHostMigration(NetworkRunner runner, HostMigrationToken hostMigrationToken)
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 
     public void OnInput(NetworkRunner runner, NetworkInput input)
     {
-
+        //throw new NotImplementedException();
     }
 
     public void OnInputMissing(NetworkRunner runner, PlayerRef player, NetworkInput input)
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 
     public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
     {
-        if (runner.LocalPlayer == player)
-        {   
-            NetworkObject networkPlayerObject = runner.Spawn(playerPrefabRef, Vector2.zero, Quaternion.identity, runner.LocalPlayer);
-            spawnedCharacters.Add(player, networkPlayerObject);
-        }
+        connectingObj.SetActive(false);
 
         if (runner.SessionInfo.PlayerCount == 1)
         {
@@ -118,6 +123,10 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
         {
             print(runner.SessionInfo.PlayerCount);
         }
+
+        characterSelectionScreen = FindObjectOfType<CharacterSelectionScreen>();
+        characterSelectionScreen.isAttackingSide = !(runner.SessionInfo.PlayerCount % 2 == 0);
+
     }
 
     public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
@@ -131,31 +140,31 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
 
     public void OnReliableDataReceived(NetworkRunner runner, PlayerRef player, ArraySegment<byte> data)
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 
     public void OnSceneLoadDone(NetworkRunner runner)
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 
     public void OnSceneLoadStart(NetworkRunner runner)
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 
     public void OnSessionListUpdated(NetworkRunner runner, List<SessionInfo> sessionList)
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 
     public void OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason)
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 
     public void OnUserSimulationMessage(NetworkRunner runner, SimulationMessagePtr message)
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 }

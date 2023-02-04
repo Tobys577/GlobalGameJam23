@@ -1461,11 +1461,6 @@ MonoBehaviour:
   maxSessionSize: 6
   playerPrefabRef:
     RawGuidValue: dc092366362cefa45b3db3446932a6de
-<<<<<<< Updated upstream
-  characterSelectionScreenPref:
-    RawGuidValue: 00000000000000000000000000000000
-=======
->>>>>>> Stashed changes
 --- !u!4 &679535370
 Transform:
   m_ObjectHideFlags: 0
