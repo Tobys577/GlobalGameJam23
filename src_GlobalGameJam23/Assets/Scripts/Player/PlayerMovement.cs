@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class PlayerMovement : NetworkBehaviour
 {
+    public SpriteRenderer bodySprite;
+
     [SerializeField] private float speed;
     private FieldOfView fieldOfView;
     private Vector3 mousePos;
@@ -39,6 +41,5 @@ public class PlayerMovement : NetworkBehaviour
         mousePos = Camera.main.ScreenToWorldPoint(mousePos);
         Vector2 direction = new Vector2(mousePos.x - transform.position.x, mousePos.y - transform.position.y);
         transform.up = direction;
-
     }
 }

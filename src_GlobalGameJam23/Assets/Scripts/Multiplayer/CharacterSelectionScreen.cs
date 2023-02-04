@@ -148,6 +148,7 @@ public class CharacterSelectionScreen : NetworkBehaviour
     public void RPC_SpawnPlayer()
     {
         NetworkObject player = basicSpawner.SpawnPlayer();
+        player.GetComponent<PlayerMovement>().bodySprite.sprite = characters[characterID].characterSprite;
 
         gameObject.SetActive(false);
     }

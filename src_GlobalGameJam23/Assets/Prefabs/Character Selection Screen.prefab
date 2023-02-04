@@ -1937,14 +1937,19 @@ MonoBehaviour:
   characterID: -1
   characters:
   - icon: {fileID: 21300000, guid: c664ec6743c03cc478ca2486fff35aab, type: 3}
+    characterSprite: {fileID: 21300000, guid: 16e440ab3b5a02d489cfc9e4c4cc6899, type: 3}
     characterName: Walter
   - icon: {fileID: 21300000, guid: 18732a50a569d0c4aa2fa70aa4713744, type: 3}
+    characterSprite: {fileID: 21300000, guid: 418758fa5b0fc3c47b58355972f2d65a, type: 3}
     characterName: Kyle
   - icon: {fileID: 21300000, guid: 057f2e2593e39834d8e483ae0ebac305, type: 3}
+    characterSprite: {fileID: 21300000, guid: cc4b57b8d10442940b107d29242ec220, type: 3}
     characterName: Keith
   - icon: {fileID: 21300000, guid: a926d0cc51138c34d99736d6ad04fb2c, type: 3}
+    characterSprite: {fileID: 21300000, guid: 15542c4ab838b5846943044bec9897c8, type: 3}
     characterName: Barry
   - icon: {fileID: 21300000, guid: 93dfb17d18d3c384d9b23cbc8c172a88, type: 3}
+    characterSprite: {fileID: 21300000, guid: 01a5250634438d84482b0b9a92af6909, type: 3}
     characterName: Agnus
   lockInButton: {fileID: 6031778692950317660}
   attackIcons:

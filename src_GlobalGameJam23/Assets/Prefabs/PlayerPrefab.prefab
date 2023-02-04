@@ -259,8 +259,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
+  bodySprite: {fileID: 5216615891436799181}
   speed: 2
-  fov: {fileID: 0}
 --- !u!114 &283182527594829747
 MonoBehaviour:
   m_ObjectHideFlags: 0
