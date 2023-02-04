@@ -20,8 +20,6 @@ public class CharacterSelectionScreen : NetworkBehaviour
     public bool isAttackingSide;
     public int iconNumber;
 
-    public int characterID = -1;
-
     [SerializeField]
     private Character[] characters;
 
@@ -36,16 +34,6 @@ public class CharacterSelectionScreen : NetworkBehaviour
         RPC_UpdateTimer(time);
     }
 
-    public void callSelectCharacter()
-    {
-        RPC_SelectCharacter(characterID, isAttackingSide, iconNumber, BasicSpawner.username);
-    }
-
-    private void Update()
-    {
-        callSelectCharacter();
-    }
-
     [Rpc]
     public void RPC_UpdateTimer(int time, RpcInfo info = default)
     {
@@ -54,35 +42,8 @@ public class CharacterSelectionScreen : NetworkBehaviour
     }
 
     [Rpc]
-    public void RPC_SelectCharacter(int characterId, bool x_attackingSide, int x_iconNum, string userName)
+    public void RPC_SelectCharacter(int characterId)
     {
-        if(characterId == -1)
-        {
-            if (x_attackingSide)
-            {
-                attackIcons[x_iconNum].name.text = userName;
-                attackIcons[x_iconNum].characterName.text = "";
-                attackIcons[x_iconNum].icon.sprite = null;
-            } else
-            {
-                defenceIcons[x_iconNum].name.text = userName;
-                defenceIcons[x_iconNum].characterName.text = "";
-                defenceIcons[x_iconNum].icon.sprite = null;
-            }
-        } else
-        {
-            if (x_attackingSide)
-            {
-                attackIcons[x_iconNum].name.text = userName;
-                attackIcons[x_iconNum].characterName.text = characters[characterId].characterName;
-                attackIcons[x_iconNum].icon.sprite = characters[characterId].icon;
-            }
-            else
-            {
-                defenceIcons[x_iconNum].name.text = userName;
-                defenceIcons[x_iconNum].characterName.text = characters[characterId].characterName;
-                defenceIcons[x_iconNum].icon.sprite = characters[characterId].icon;
-            }
-        }
+
     }
 }
