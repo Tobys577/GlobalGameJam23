@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerMovement : NetworkBehaviour
 {
     [SerializeField] private float speed;
+    private FieldOfView fieldOfView;
     private Vector3 mousePos;
     private NetworkObject networkObject;
     private Rigidbody2D rb;
@@ -13,6 +14,7 @@ public class PlayerMovement : NetworkBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         networkObject = GetComponent<NetworkObject>();
+        fieldOfView = GameObject.Find("FieldOfView").GetComponent<FieldOfView>();
     }
 
     private void Update()
@@ -22,7 +24,8 @@ public class PlayerMovement : NetworkBehaviour
             rb.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, Input.GetAxis("Vertical") * speed);
         }
         faceMouse();
-       
+        fieldOfView.SetDirection(transform.up);
+        fieldOfView.SetOrigin(transform.position);
     }
 
     float AngleBetweenTwoPoints(Vector3 a, Vector3 b)
@@ -32,7 +35,7 @@ public class PlayerMovement : NetworkBehaviour
 
     void faceMouse()
     {
-        Vector3 mousePos = Input.mousePosition;
+        mousePos = Input.mousePosition;
         mousePos = Camera.main.ScreenToWorldPoint(mousePos);
         Vector2 direction = new Vector2(mousePos.x - transform.position.x, mousePos.y - transform.position.y);
         transform.up = direction;
