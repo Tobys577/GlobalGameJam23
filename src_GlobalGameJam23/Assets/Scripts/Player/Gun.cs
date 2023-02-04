@@ -4,34 +4,42 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
-
-    [SerializeField] GameObject obstacleRayObject;
-    [SerializeField] GameObject characterObject;
-    [SerializeField] float obstacleRayDistance;
-    float characterDirection;
-
+    [SerializeField] public Transform gunPoint;
+    [SerializeField] public Transform bulletTrail;
+    [SerializeField] public float range = 10f;
+    
 
     // Start is called before the first frame update
     void Start()
     {
-        characterDirection = 0f;
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        RaycastHit2D hitObstacle = Physics2D.Raycast(obstacleRayObject.transform.position, Vector2.right * new Vector2(characterDirection, 0f), obstacleRayDistance);
-
-        if(hitObstacle.collider != null)
+        if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("Ray collision detected");
-            Debug.DrawRay(obstacleRayObject.transform.position, Vector2.right * hitObstacle.distance * new Vector2(characterDirection, 0f), Color.red);
+            Shoot();
+        }
+    }
 
+    void Shoot()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(gunPoint.position, transform.up, range);
+        Transform trail = Instantiate(bulletTrail, gunPoint.position, transform.rotation);
+        BulletTrailScript trailScript = trail.GetComponent<BulletTrailScript>();
+
+        if(hit.collider != null)
+        {
+            trailScript.SetTargetPosition(hit.point);
+            //code here for hit target
         }
         else
         {
-            Debug.Log("No collision detected");
-            Debug.DrawRay(obstacleRayObject.transform.position, Vector2.right * hitObstacle.distance * new Vector2(characterDirection, 0f), Color.green);
+            Vector3 endPos = gunPoint.position + transform.up * range;
+            trailScript.SetTargetPosition(endPos);
         }
+
     }
 }
