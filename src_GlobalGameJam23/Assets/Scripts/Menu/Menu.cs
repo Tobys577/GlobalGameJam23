@@ -16,6 +16,7 @@ public class Menu : MonoBehaviour
 
     public void LoadMainLevel(string levelName)
     {
+        BasicSpawner.username = usernameInputField.text;
         PlayerPrefs.SetString("Player", usernameInputField.text);
         SceneManager.LoadScene(levelName);
     }

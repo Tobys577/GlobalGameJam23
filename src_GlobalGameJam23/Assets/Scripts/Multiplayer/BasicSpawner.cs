@@ -8,6 +8,8 @@ using UnityEngine.SceneManagement;
 
 public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
 {
+    public static string username = "";
+
     [SerializeField]
     private int maxSessionSize = 6;
 
@@ -124,8 +126,16 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
             print(runner.SessionInfo.PlayerCount);
         }
 
-        characterSelectionScreen = FindObjectOfType<CharacterSelectionScreen>();
-        characterSelectionScreen.isAttackingSide == !(runner.SessionInfo.PlayerCount % 2 == 0);
+        if (runner.LocalPlayer == player)
+        {
+            characterSelectionScreen = FindObjectOfType<CharacterSelectionScreen>();
+            characterSelectionScreen.isAttackingSide = !(runner.SessionInfo.PlayerCount % 2 == 0);
+            characterSelectionScreen.iconNumber = (int)(runner.SessionInfo.PlayerCount / 2);
+            if (!characterSelectionScreen)
+                characterSelectionScreen.iconNumber--;
+
+            characterSelectionScreen.characterID = -1;
+        }
     }
 
     public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
