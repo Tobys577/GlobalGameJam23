@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
+using TMPro.Examples;
 using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
     [SerializeField] public Transform gunPoint;
     [SerializeField] public Transform bulletTrail;
-    [SerializeField] public float range = 10f;
-    
+    [SerializeField] public float range = 100f;
+    public float variability = 1f;
 
     // Start is called before the first frame update
     void Start()
@@ -26,6 +28,16 @@ public class Gun : MonoBehaviour
 
     void Shoot()
     {
+        
+        if(Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Horizontal") != 0)
+        {
+            variability = Random.Range(-10f, 10f);
+        }
+        else
+        {
+            variability = 1;
+        }
+
         RaycastHit2D hit = Physics2D.Raycast(gunPoint.position, transform.up, range);
         Transform trail = Instantiate(bulletTrail, gunPoint.position, transform.rotation);
         BulletTrailScript trailScript = trail.GetComponent<BulletTrailScript>();
