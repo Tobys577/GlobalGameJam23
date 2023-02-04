@@ -1778,7 +1778,6 @@ MonoBehaviour:
   timerCounter: {fileID: 6031778691694925435}
   isAttackingSide: 0
   iconNumber: 0
-  lockInButton: {fileID: 6031778692950317660}
   characters: []
   attackIcons:
   - icon: {fileID: 6031778691152939683}

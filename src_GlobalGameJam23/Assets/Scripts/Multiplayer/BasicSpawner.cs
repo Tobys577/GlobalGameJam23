@@ -102,6 +102,11 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
 
     public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
     {
+<<<<<<< HEAD
+        connectingObj.SetActive(false);
+
+=======
+>>>>>>> main
         if (runner.SessionInfo.PlayerCount == 1)
         {
             print("count down started");
@@ -112,15 +117,6 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
         {
             print(runner.SessionInfo.PlayerCount);
         }
-    }
-
-    [ContextMenu("Spawn Player")]
-    public void SpawnPlayer()
-    {
-        NetworkObject networkPlayerObject = runner.Spawn(playerPrefabRef, Vector2.zero, Quaternion.identity, runner.LocalPlayer);
-        spawnedCharacters.Add(runner.LocalPlayer, networkPlayerObject);
-
-        characterSelectionScreen.gameObject.SetActive(false);
     }
 
     public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
