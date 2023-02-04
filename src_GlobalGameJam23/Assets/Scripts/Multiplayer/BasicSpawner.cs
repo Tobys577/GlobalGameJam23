@@ -28,6 +28,16 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
 
     private CharacterSelectionScreen characterSelectionScreen;
 
+    private Dictionary<int, KeyValuePair<bool, int>> playerCountDict = new Dictionary<int, KeyValuePair<bool, int>>()
+    {
+        { 1, new KeyValuePair<bool, int>(true, 0) },
+        { 2, new KeyValuePair<bool, int>(false, 0) },
+        { 3, new KeyValuePair<bool, int>(true, 1) },
+        { 4, new KeyValuePair<bool, int>(false, 1) },
+        { 5, new KeyValuePair<bool, int>(true, 2) },
+        { 6, new KeyValuePair<bool, int>(false, 2) }
+    };
+
     private void Start()
     {
         StartGame();
@@ -68,6 +78,32 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
             yield return new WaitForSeconds(1);
             timer--;
             characterSelectionScreen.callUpdateTimer(timer);
+
+            bool allLocked = true;
+            for(int i = 0; i < 6 && allLocked != false; i++)
+            {
+                if(i % 2 == 0)
+                {
+                    if (characterSelectionScreen.lockedInAttacking[i] == -1)
+                        allLocked = false;
+                } else
+                {
+                    if (characterSelectionScreen.lockedInDefending[i] == -1)
+                        allLocked = false;
+                }
+            }
+
+            if (allLocked)
+                timer = 0;
+        }
+
+        if (runner.SessionInfo.PlayerCount <= 1)
+        {
+            runner.Shutdown();
+            SceneManager.LoadScene("Menu");
+        } else
+        {
+            characterSelectionScreen.callSpawnPlayers();
         }
     }
 
@@ -130,22 +166,21 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
         if (runner.LocalPlayer == player)
         {
             characterSelectionScreen = FindObjectOfType<CharacterSelectionScreen>();
-            characterSelectionScreen.isAttackingSide = !(runner.SessionInfo.PlayerCount % 2 == 0);
-            characterSelectionScreen.iconNumber = (int)(runner.SessionInfo.PlayerCount / 2);
-            if (!characterSelectionScreen)
-                characterSelectionScreen.iconNumber--;
-
+            print(runner.SessionInfo.PlayerCount);
+            characterSelectionScreen.isAttackingSide = playerCountDict[runner.SessionInfo.PlayerCount].Key;
+            characterSelectionScreen.iconNumber = playerCountDict[runner.SessionInfo.PlayerCount].Value;
+            print(playerCountDict[runner.SessionInfo.PlayerCount].Key.ToString() + " ~ " + playerCountDict[runner.SessionInfo.PlayerCount].Value.ToString());
             characterSelectionScreen.characterID = -1;
         }
     }
 
     [ContextMenu("Spawn Player")]
-    public void SpawnPlayer()
+    public NetworkObject SpawnPlayer()
     {
         NetworkObject networkPlayerObject = runner.Spawn(playerPrefabRef, Vector2.zero, Quaternion.identity, runner.LocalPlayer);
         spawnedCharacters.Add(runner.LocalPlayer, networkPlayerObject);
 
-        characterSelectionScreen.gameObject.SetActive(false);
+        return networkPlayerObject;
     }
 
     public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)

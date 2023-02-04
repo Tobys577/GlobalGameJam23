@@ -4,6 +4,7 @@ using UnityEngine;
 using Fusion;
 using TMPro;
 using UnityEngine.UI;
+using System;
 
 [System.Serializable]
 public struct CharacterSelectionIcon
@@ -34,12 +35,21 @@ public class CharacterSelectionScreen : NetworkBehaviour
     [SerializeField]
     private CharacterSelectionIcon[] defenceIcons;
 
+    [SerializeField]
+    private Button[] characterButtons;
+
+    [HideInInspector]
+    public int[] lockedInAttacking = new int[] { -1, -1, -1 };
+    [HideInInspector]
+    public int[] lockedInDefending = new int[] { -1, -1, -1 };
+
+    private bool lockedIn = false;
+
     private BasicSpawner basicSpawner;
 
     public void Start()
     {
         basicSpawner = GameObject.Find("BasicSpawner").GetComponent<BasicSpawner>();
-        lockInButton.onClick.AddListener(basicSpawner.SpawnPlayer);
     }
 
     public void callUpdateTimer(int time)
@@ -49,23 +59,102 @@ public class CharacterSelectionScreen : NetworkBehaviour
 
     public void callSelectCharacter()
     {
-        RPC_SelectCharacter(characterID, isAttackingSide, iconNumber, BasicSpawner.username);
+        RPC_SelectCharacter(characterID, isAttackingSide, iconNumber, BasicSpawner.username, lockedIn);
+    }
+
+    public void setSelectedCharacter(int selectedCharacter)
+    {
+        characterID = selectedCharacter;
+    }
+
+    public void lockInCharacter()
+    {
+        if (characterID != -1)
+        {
+            lockedIn = true;
+        }
     }
 
     private void Update()
     {
         callSelectCharacter();
+
+        lockInButton.interactable = !(characterID == -1);
+
+        if (isAttackingSide)
+        {
+            if (!lockedIn)
+            {
+                for (int j = 0; j < lockedInAttacking.Length; j++)
+                {
+                    if (lockedInAttacking[j] == characterID)
+                    {
+                        characterID = -1;
+                    }
+                }
+            }
+
+            for (int i = 0; i < characterButtons.Length; i++)
+            {
+                characterButtons[i].interactable = !lockedIn;
+                for (int j = 0; j < lockedInAttacking.Length; j++)
+                {
+                    if(i == lockedInAttacking[j])
+                    {
+                        characterButtons[i].interactable = false;
+                        break;
+                    }
+                }
+            }
+        } else
+        {
+            if (!lockedIn)
+            {
+                for (int j = 0; j < lockedInDefending.Length; j++)
+                {
+                    if (lockedInDefending[j] == characterID)
+                    {
+                        characterID = -1;
+                    }
+                }
+            }
+
+            for (int i = 0; i < characterButtons.Length; i++)
+            {
+                characterButtons[i].interactable = !lockedIn;
+                for (int j = 0; j < lockedInDefending.Length; j++)
+                {
+                    if (i == lockedInDefending[j])
+                    {
+                        characterButtons[i].interactable = false;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    public void callSpawnPlayers()
+    {
+        RPC_SpawnPlayer();
+    }
+
+    [Rpc]
+    public void RPC_SpawnPlayer()
+    {
+        NetworkObject player = basicSpawner.SpawnPlayer();
+
+        gameObject.SetActive(false);
     }
 
     [Rpc]
     public void RPC_UpdateTimer(int time, RpcInfo info = default)
     {
-        print("Update timer called! " + time.ToString());
         timerCounter.text = time.ToString();
     }
 
     [Rpc]
-    public void RPC_SelectCharacter(int characterId, bool x_attackingSide, int x_iconNum, string userName)
+    public void RPC_SelectCharacter(int characterId, bool x_attackingSide, int x_iconNum, string userName, bool x_lockedIn = false)
     {
         if (characterId == -1)
         {
@@ -95,6 +184,17 @@ public class CharacterSelectionScreen : NetworkBehaviour
                 defenceIcons[x_iconNum].name.text = userName;
                 defenceIcons[x_iconNum].characterName.text = characters[characterId].characterName;
                 defenceIcons[x_iconNum].icon.sprite = characters[characterId].icon;
+            }
+
+            if (x_lockedIn)
+            {
+                if (x_attackingSide)
+                {
+                    lockedInAttacking[x_iconNum] = characterId;
+                } else
+                {
+                    lockedInDefending[x_iconNum] = characterId;
+                }
             }
         }
     }
