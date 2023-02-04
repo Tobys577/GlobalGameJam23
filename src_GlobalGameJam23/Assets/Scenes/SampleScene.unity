@@ -18476,7 +18476,7 @@ GameObject:
   - component: {fileID: 6110159753906512954}
   - component: {fileID: 6110159753906512949}
   m_Layer: 5
-  m_Name: Character Selection Screen
+  m_Name: Connecting
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
