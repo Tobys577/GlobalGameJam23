@@ -17,6 +17,9 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
     [SerializeField]
     private NetworkPrefabRef characterSelectionScreenPref;
 
+    [SerializeField]
+    private GameObject connectingObj;
+
     private Dictionary<PlayerRef, NetworkObject> spawnedCharacters = new Dictionary<PlayerRef, NetworkObject>();
 
     private NetworkRunner runner;
@@ -25,12 +28,18 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
 
     private void Start()
     {
-        // Start game in shared mode to be similar to PUN
+        StartGame();
+    }
+
+    public void StartGame()
+    {
         StartGame(GameMode.Shared);
     }
 
     private async void StartGame(GameMode mode)
     {
+        connectingObj.SetActive(true);
+
         runner = gameObject.AddComponent<NetworkRunner>();
         runner.ProvideInput = true;
 
@@ -102,11 +111,7 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
 
     public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
     {
-        if (runner.LocalPlayer == player)
-        {   
-            NetworkObject networkPlayerObject = runner.Spawn(playerPrefabRef, Vector2.zero, Quaternion.identity, runner.LocalPlayer);
-            spawnedCharacters.Add(player, networkPlayerObject);
-        }
+        connectingObj.SetActive(false);
 
         if (runner.SessionInfo.PlayerCount == 1)
         {
