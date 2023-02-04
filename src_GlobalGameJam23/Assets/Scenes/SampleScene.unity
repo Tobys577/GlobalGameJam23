@@ -15706,8 +15706,7 @@ MonoBehaviour:
   NetworkGuid:
     RawGuidValue: b5943ea90fe64aec8f4085e43b99090d
   NestedObjects: []
-  NetworkedBehaviours:
-  - {fileID: 1054705960}
+  NetworkedBehaviours: []
   SimulationBehaviours: []
 --- !u!114 &1054705960
 MonoBehaviour:
