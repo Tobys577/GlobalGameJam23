@@ -1780,19 +1780,25 @@ MonoBehaviour:
   iconNumber: 0
   characters: []
   attackIcons:
-  - name: {fileID: 0}
-    characterName: {fileID: 0}
-  - name: {fileID: 0}
-    characterName: {fileID: 0}
-  - name: {fileID: 0}
-    characterName: {fileID: 0}
+  - icon: {fileID: 6031778691152939683}
+    name: {fileID: 6031778692319854649}
+    characterName: {fileID: 6031778691805195878}
+  - icon: {fileID: 6031778691489352367}
+    name: {fileID: 6031778692365662816}
+    characterName: {fileID: 6031778691031533806}
+  - icon: {fileID: 6031778691498726784}
+    name: {fileID: 6031778692890163965}
+    characterName: {fileID: 6031778691338702776}
   defenceIcons:
-  - name: {fileID: 0}
-    characterName: {fileID: 0}
-  - name: {fileID: 0}
-    characterName: {fileID: 0}
-  - name: {fileID: 0}
-    characterName: {fileID: 0}
+  - icon: {fileID: 5932794113426127690}
+    name: {fileID: 582269590281786668}
+    characterName: {fileID: 3807354858309627557}
+  - icon: {fileID: 7538419949431893684}
+    name: {fileID: 2819110691613224222}
+    characterName: {fileID: 1103041101336891921}
+  - icon: {fileID: 4299961255310859307}
+    name: {fileID: 7928270575606630319}
+    characterName: {fileID: 237477226132056492}
 --- !u!114 &6031778691157227101
 MonoBehaviour:
   m_ObjectHideFlags: 0
