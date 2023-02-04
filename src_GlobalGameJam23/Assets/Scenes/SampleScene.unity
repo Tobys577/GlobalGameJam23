@@ -133,7 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5748693}
   - component: {fileID: 5748694}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: rooot1 (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -217,7 +217,7 @@ GameObject:
   m_Component:
   - component: {fileID: 139731726}
   - component: {fileID: 139731727}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: rooot2 (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -301,7 +301,7 @@ GameObject:
   m_Component:
   - component: {fileID: 187663259}
   - component: {fileID: 187663260}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: rooot1 (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -385,7 +385,7 @@ GameObject:
   m_Component:
   - component: {fileID: 263041045}
   - component: {fileID: 263041046}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: pixil-frame-0_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -469,7 +469,7 @@ GameObject:
   m_Component:
   - component: {fileID: 274471547}
   - component: {fileID: 274471548}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: pixil-frame-0_1 (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -553,7 +553,7 @@ GameObject:
   m_Component:
   - component: {fileID: 297233071}
   - component: {fileID: 297233072}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: rooot2 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -637,7 +637,7 @@ GameObject:
   m_Component:
   - component: {fileID: 360875937}
   - component: {fileID: 360875938}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: rooot2 (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -721,7 +721,7 @@ GameObject:
   m_Component:
   - component: {fileID: 409648428}
   - component: {fileID: 409648429}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: rooot2 (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -805,7 +805,7 @@ GameObject:
   m_Component:
   - component: {fileID: 460503419}
   - component: {fileID: 460503420}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: pixil-frame-0_1 (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -957,7 +957,7 @@ GameObject:
   m_Component:
   - component: {fileID: 500734402}
   - component: {fileID: 500734403}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: pixil-frame-0_1 (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1125,7 +1125,7 @@ GameObject:
   m_Component:
   - component: {fileID: 520776022}
   - component: {fileID: 520776023}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: rooot1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1209,7 +1209,7 @@ GameObject:
   m_Component:
   - component: {fileID: 568814156}
   - component: {fileID: 568814157}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: rooot1 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1343,7 +1343,7 @@ GameObject:
   m_Component:
   - component: {fileID: 727613631}
   - component: {fileID: 727613632}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: rooot2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1427,7 +1427,7 @@ GameObject:
   m_Component:
   - component: {fileID: 768296150}
   - component: {fileID: 768296151}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: rooot1 (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1511,7 +1511,7 @@ GameObject:
   m_Component:
   - component: {fileID: 824470532}
   - component: {fileID: 824470533}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: pixil-frame-0_1 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1585,6 +1585,120 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &949176940
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 949176945}
+  - component: {fileID: 949176944}
+  - component: {fileID: 949176943}
+  - component: {fileID: 949176942}
+  - component: {fileID: 949176941}
+  m_Layer: 0
+  m_Name: FieldOfView
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!210 &949176941
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 949176940}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 100
+--- !u!23 &949176942
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 949176940}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &949176943
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 949176940}
+  m_Mesh: {fileID: 0}
+--- !u!114 &949176944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 949176940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be39b171cef88a7428e49cc998e61688, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mesh: {fileID: 0}
+  layerMask:
+    m_Bits: 8
+  origin: {x: 0, y: 0, z: 0}
+  startingAngle: 0
+  fov: 0
+--- !u!4 &949176945
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 949176940}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!1 &960044855
 GameObject:
   m_ObjectHideFlags: 0
@@ -1595,7 +1709,7 @@ GameObject:
   m_Component:
   - component: {fileID: 960044856}
   - component: {fileID: 960044857}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: pixil-frame-0_1 (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1679,7 +1793,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1146078094}
   - component: {fileID: 1146078095}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: rooot2 (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1984,7 +2098,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1255580760}
   - component: {fileID: 1255580761}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: rooot1 (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2068,7 +2182,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1263426350}
   - component: {fileID: 1263426351}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: pixil-frame-0_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2152,7 +2266,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1269290051}
   - component: {fileID: 1269290052}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: rooot1 (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2236,7 +2350,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1484824369}
   - component: {fileID: 1484824370}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: rooot1 (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2320,7 +2434,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1562814044}
   - component: {fileID: 1562814045}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: rooot2 (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2404,7 +2518,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1613256739}
   - component: {fileID: 1613256740}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: rooot2 (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2488,7 +2602,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1618101399}
   - component: {fileID: 1618101400}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: rooot2 (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2572,7 +2686,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1645775579}
   - component: {fileID: 1645775580}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: rooot2 (12)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2656,7 +2770,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1650339941}
   - component: {fileID: 1650339942}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: pixil-frame-0_1 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2740,7 +2854,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1712382748}
   - component: {fileID: 1712382749}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: rooot1 (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2996,7 +3110,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1734428270}
   - component: {fileID: 1734428271}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: rooot2 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3082,7 +3196,7 @@ GameObject:
   - component: {fileID: 1758333569}
   - component: {fileID: 1758333568}
   - component: {fileID: 1758333567}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Tilemap (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3778,7 +3892,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1760292216}
   - component: {fileID: 1760292217}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: rooot1 (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3862,7 +3976,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1827274219}
   - component: {fileID: 1827274220}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: pixil-frame-0_1 (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3946,7 +4060,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1839710662}
   - component: {fileID: 1839710663}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: pixil-frame-0_1 (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4030,7 +4144,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1856176154}
   - component: {fileID: 1856176155}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: pixil-frame-0_1 (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4116,7 +4230,7 @@ GameObject:
   - component: {fileID: 1927385121}
   - component: {fileID: 1927385120}
   - component: {fileID: 1927385119}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Tilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17805,7 +17919,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2046187940}
   - component: {fileID: 2046187941}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: rooot2 (13)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18061,7 +18175,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2054200866}
   - component: {fileID: 2054200867}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: rooot2 (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18145,7 +18259,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2077145472}
   - component: {fileID: 2077145473}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: rooot2 (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18229,7 +18343,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2111928368}
   - component: {fileID: 2111928369}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: rooot1 (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18313,7 +18427,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2120439226}
   - component: {fileID: 2120439227}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: rooot1 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
