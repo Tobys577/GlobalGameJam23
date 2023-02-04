@@ -75,12 +75,7 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
 
     public void OnInput(NetworkRunner runner, NetworkInput input)
     {
-        var data = new NetworkInputData();
 
-        data.direction.y = Input.GetAxis("Vertical");
-        data.direction.x = Input.GetAxis("Horizontal");
-
-        input.Set(data);
     }
 
     public void OnInputMissing(NetworkRunner runner, PlayerRef player, NetworkInput input)
