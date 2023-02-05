@@ -84,7 +84,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 1
   m_SpriteSortPoint: 0
 --- !u!58 &388440633159821871
 CircleCollider2D:
@@ -251,8 +251,10 @@ MonoBehaviour:
   gunPoint: {fileID: 388440634244205972}
   bulletTrail: {fileID: 2320423680087566305, guid: f49f58b2a21de5146ad343db470688be, type: 3}
   range: 10
+  shotCoolDown: 0.2
   variability: 1
   _attacking: 0
+  lastShot: 0
 --- !u!114 &388440633251533506
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -280,6 +282,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
   health: 100
+  diedCanvas: {fileID: 0}
 --- !u!114 &8239972067846032758
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -293,6 +296,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fogOfWar: {fileID: 0}
+  fogOfWarMask: {fileID: 6582711988511166574}
   secondaryFogOfWar: {fileID: 4815085744506105387}
   sightDistance: 5
   checkInterval: 0.25
@@ -378,7 +382,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 1
   m_SpriteSortPoint: 0
 --- !u!1 &388440634244205973
 GameObject:

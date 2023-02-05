@@ -3275,6 +3275,7 @@ MonoBehaviour:
   characterSelectionScreen: {fileID: 0}
   roundManagementScreen: {fileID: 0}
   timer: 120
+  diedCanvas: {fileID: 1275832770}
 --- !u!4 &679535370
 Transform:
   m_ObjectHideFlags: 0
