@@ -5,6 +5,7 @@ using TMPro.Examples;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class RoundManagement : NetworkBehaviour
 {
@@ -242,7 +243,32 @@ public class RoundManagement : NetworkBehaviour
 
         if (currentRound == 5)
         {
-            basicSpawner.ExitToMenu();
+            Runner.Shutdown();
+            bool attackWon = false;
+
+            int attackI = 0;
+            int defenceI = 0;
+            foreach (char character in rounds)
+            {
+                switch (character)
+                {
+                    case 'a':
+                        attackI++;
+                        break;
+                    case 'd':
+                        defenceI++;
+                        break;
+                }
+            }
+            attackWon = attackI > defenceI;
+
+            if (attackWon && basicSpawner.characterSelectionScreen.isAttackingSide)
+                PlayerPrefs.SetString("WonLost", "won");
+            else
+                PlayerPrefs.SetString("WonLost", "lost");
+
+            PlayerPrefs.GetString("WonLost");
+            SceneManager.LoadScene("WinLoss");
         }
     }
 }
