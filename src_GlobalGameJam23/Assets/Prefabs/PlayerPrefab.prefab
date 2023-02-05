@@ -249,8 +249,10 @@ MonoBehaviour:
   gunPoint: {fileID: 4393060886893166571}
   bulletTrail: {fileID: 2320423680087566305, guid: f49f58b2a21de5146ad343db470688be, type: 3}
   range: 10
+  shotCoolDown: 0.2
   variability: 1
   _attacking: 0
+  lastShot: 0.35
 --- !u!114 &4393060885867847869
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -278,6 +280,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
   health: 100
+  diedCanvas: {fileID: 0}
 --- !u!1 &4393060885894606969
 GameObject:
   m_ObjectHideFlags: 0
