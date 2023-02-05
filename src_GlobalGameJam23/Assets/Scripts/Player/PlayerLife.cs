@@ -9,13 +9,12 @@ public class PlayerLife : NetworkBehaviour
     public int health = 100;
 
     NetworkObject netObj;
-    GameObject diedCanvas;
+    [HideInInspector] public GameObject diedCanvas;
     private void Start()
     {
         netObj = GetComponent<NetworkObject>();
         if (netObj.HasStateAuthority)
         {
-            diedCanvas = GameObject.Find("Died");
             diedCanvas.SetActive(false);
         }
     }
@@ -27,7 +26,7 @@ public class PlayerLife : NetworkBehaviour
         {
             if (health < 0)
             {
-                Destroy(gameObject);
+                Die();
             }
         }
     }
@@ -45,7 +44,19 @@ public class PlayerLife : NetworkBehaviour
         health = newHealth;
     }
 
-    private void OnDestroy()
+
+    public void callDieNoCanvas()
+    {
+        RPC_DieNoCanvas();
+    }
+
+    [Rpc]
+    public void RPC_DieNoCanvas()
+    {
+        Runner.Despawn(GetComponent<NetworkObject>());
+    }
+
+    private void Die()
     {
         if (diedCanvas == null)
             return;
