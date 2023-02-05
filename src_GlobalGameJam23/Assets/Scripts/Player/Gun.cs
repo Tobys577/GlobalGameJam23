@@ -11,15 +11,20 @@ public class Gun : NetworkBehaviour
     [SerializeField] public Transform gunPoint;
     [SerializeField] public Transform bulletTrail;
     [SerializeField] public float range = 100f;
+    [SerializeField] private float shotCoolDown = 0.2f;
     public float variability = 1f;
     
     [Networked] public bool attacking { set; get; }
 
     private NetworkObject networkObject;
+    BulletTrailScript trailScript = new BulletTrailScript();
+
+    public float lastShot;
 
     // Start is called before the first frame update
     void Start()
     {
+        lastShot = Time.time;
         networkObject = GetComponent<NetworkObject>();
     }
 
@@ -37,6 +42,11 @@ public class Gun : NetworkBehaviour
 
     void Shoot()
     {
+        if(Time.time - lastShot < shotCoolDown)
+        {
+            return;
+        }
+
         bool moving = false;
         if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
         {
@@ -47,13 +57,11 @@ public class Gun : NetworkBehaviour
         transform.eulerAngles = new Vector3(0, 0, moving ? Random.Range(transform.eulerAngles.z - 10, transform.eulerAngles.z + 10) : transform.eulerAngles.z);
 
         RaycastHit2D hit = Physics2D.Raycast(gunPoint.position, transform.up, range);
-        Transform trail = Instantiate(bulletTrail, gunPoint.position, transform.rotation);
-        BulletTrailScript trailScript = trail.GetComponent<BulletTrailScript>();
-
+        Vector2 targetPos = Vector2.zero;
 
         if (hit.collider != null)
         {
-            trailScript.SetTargetPosition(hit.point);
+            targetPos = (hit.point);
             if (hit.collider.gameObject.transform.parent.tag == "Player" && hit.collider.gameObject.GetComponentInParent<Gun>().attacking != attacking)
             {
                 hit.collider.gameObject.GetComponentInParent<PlayerLife>().UpdateHealth(30);
@@ -62,9 +70,18 @@ public class Gun : NetworkBehaviour
         else
         {
             Vector3 endPos = gunPoint.position + transform.up * range;
-            trailScript.SetTargetPosition(endPos);
+            targetPos = (endPos);
         }
         transform.eulerAngles = originalEulerAngle;
 
+        RPC_SpawnBulletTrail(gunPoint.position, transform.rotation, targetPos);
+    }
+
+    [Rpc]
+    public void RPC_SpawnBulletTrail(Vector2 pos, Quaternion ang, Vector2 targetPos)
+    {
+        Transform trail = Instantiate(bulletTrail, pos, ang);
+        trailScript = trail.GetComponent<BulletTrailScript>();
+        trailScript.SetTargetPosition(targetPos);
     }
 }

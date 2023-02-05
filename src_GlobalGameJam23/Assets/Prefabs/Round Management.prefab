@@ -218,6 +218,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
   uiParent: {fileID: 4273156285003147450}
+  roundText: {fileID: 346159657612555753}
   countDownPanel: {fileID: 3319046830860154590}
   countDownText: {fileID: 8063373468295183105}
   roundCountDownTime: 15
