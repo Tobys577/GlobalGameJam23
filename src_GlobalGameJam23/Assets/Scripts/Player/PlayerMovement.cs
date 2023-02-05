@@ -8,7 +8,6 @@ public class PlayerMovement : NetworkBehaviour
     public SpriteRenderer bodySprite;
 
     [SerializeField] private float speed;
-    private FieldOfView fieldOfView;
     private Vector3 mousePos;
     private NetworkObject networkObject;
     private Rigidbody2D rb;
@@ -22,7 +21,6 @@ public class PlayerMovement : NetworkBehaviour
 
         mainCamera = FindObjectOfType<Camera>();
 
-        //fieldOfView = GameObject.Find("FieldOfView").GetComponent<FieldOfView>();
     }
 
     private void Update()
@@ -32,8 +30,6 @@ public class PlayerMovement : NetworkBehaviour
             rb.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, Input.GetAxis("Vertical") * speed);
 
             faceMouse();
-            //fieldOfView.SetDirection(transform.up);
-            //fieldOfView.SetOrigin(transform.position);
         }
     }
 
