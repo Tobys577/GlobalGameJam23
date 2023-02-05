@@ -1,12 +1,23 @@
 using Fusion;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro.Examples;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
+using TMPro;
 
 public class RoundManagement : NetworkBehaviour
 {
     public GameObject uiParent;
+
+    public GameObject countDownPanel;
+    public TMP_Text countDownText;
+
+    [SerializeField]
+    private int roundCountDownTime;
+
+    [HideInInspector]
+    [Networked] public int Countdown { set; get; }
 
     public Dictionary<KeyValuePair<bool, int>, NetworkObject> playerObjects = new Dictionary<KeyValuePair<bool, int>, NetworkObject>();
 
@@ -14,6 +25,7 @@ public class RoundManagement : NetworkBehaviour
 
     private Transform[] attackSideSpawnPoints = new Transform[3];
     private Transform[] defenceSideSpawnPoints = new Transform[3];
+    private GameObject[] barriers;
     private BasicSpawner basicSpawner;
 
     public int currentRound = 0;
@@ -34,17 +46,63 @@ public class RoundManagement : NetworkBehaviour
         {
             defenceSideSpawnPoints[i] = defenceSPs.transform.GetChild(i);
         }
+
+        GameObject barriersObj = GameObject.Find("Barriers");
+        barriers = new GameObject[barriersObj.transform.childCount];
+        for(int i = 0; i < barriers.Length; i++)
+        {
+            barriers[i] = barriersObj.transform.GetChild(i).gameObject;
+        }
     }
 
     public void StartRound()
     {
         RPC_StartRound();
         callSpawnPlayers();
+
+        if (isHost)
+        {
+            StartCoroutine(roundCountDown());
+        }
+    }
+
+    IEnumerator roundCountDown()
+    {
+        Countdown = roundCountDownTime;
+
+        RPC_SetBarriers(true);
+
+        while(Countdown > 0)
+        {
+            yield return new WaitForSeconds(1);
+            Countdown--;
+        }
+
+        RPC_SetBarriers(false);
+    }
+
+    private void Update()
+    {
+        if (countDownPanel.activeSelf)
+        {
+            countDownText.text = Countdown.ToString();
+        }
     }
 
     public void callSpawnPlayers()
     {
         RPC_SpawnPlayer();
+    }
+
+    [Rpc]
+    public void RPC_SetBarriers(bool value)
+    {
+        countDownPanel.SetActive(value);
+
+        foreach(GameObject barrier in barriers)
+        {
+            barrier.SetActive(value);
+        }
     }
 
     [Rpc]
@@ -63,7 +121,6 @@ public class RoundManagement : NetworkBehaviour
         player.GetComponent<PlayerMovement>().bodySprite.sprite = basicSpawner.characterSelectionScreen.characters[
             basicSpawner.characterSelectionScreen.characterID].characterSprite;
         player.GetComponent<Gun>().attacking = basicSpawner.characterSelectionScreen.isAttackingSide;
-        gameObject.SetActive(false);
         RPC_AddPlayerDict(isAttacking, sideId, player.Id);
     }
 
