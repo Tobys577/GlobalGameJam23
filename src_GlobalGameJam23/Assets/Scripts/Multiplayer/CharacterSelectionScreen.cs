@@ -24,7 +24,7 @@ public class CharacterSelectionScreen : NetworkBehaviour
     public int characterID = -1;
 
     [SerializeField]
-    private Character[] characters;
+    public Character[] characters;
 
     [SerializeField]
     private Button lockInButton;
@@ -104,14 +104,15 @@ public class CharacterSelectionScreen : NetworkBehaviour
                 characterButtons[i].interactable = !lockedIn;
                 for (int j = 0; j < lockedInAttacking.Length; j++)
                 {
-                    if(i == lockedInAttacking[j])
+                    if (i == lockedInAttacking[j])
                     {
                         characterButtons[i].interactable = false;
                         break;
                     }
                 }
             }
-        } else
+        }
+        else
         {
             if (!lockedIn)
             {
@@ -141,16 +142,7 @@ public class CharacterSelectionScreen : NetworkBehaviour
 
     public void callSpawnPlayers()
     {
-        RPC_SpawnPlayer();
-    }
-
-    [Rpc]
-    public void RPC_SpawnPlayer()
-    {
-        NetworkObject player = basicSpawner.SpawnPlayer();
-        player.GetComponent<PlayerMovement>().bodySprite.sprite = characters[characterID].characterSprite;
-
-        gameObject.SetActive(false);
+        basicSpawner.roundManagementScreen.StartRound();
     }
 
     [Rpc]
@@ -197,7 +189,8 @@ public class CharacterSelectionScreen : NetworkBehaviour
                 if (x_attackingSide)
                 {
                     lockedInAttacking[x_iconNum] = characterId;
-                } else
+                }
+                else
                 {
                     lockedInDefending[x_iconNum] = characterId;
                 }
