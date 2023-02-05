@@ -252,6 +252,7 @@ MonoBehaviour:
   bulletTrail: {fileID: 2320423680087566305, guid: f49f58b2a21de5146ad343db470688be, type: 3}
   range: 10
   shotCoolDown: 0.2
+  smoke: {fileID: 4886646172633868432, guid: a3004d45ae3a32c4e819fd81f29ce2f2, type: 3}
   variability: 1
   _attacking: 0
   lastShot: 0.35

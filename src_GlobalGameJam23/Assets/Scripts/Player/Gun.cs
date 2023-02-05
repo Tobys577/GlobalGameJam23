@@ -1,4 +1,5 @@
 using Fusion;
+using Newtonsoft.Json.Bson;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
@@ -12,7 +13,9 @@ public class Gun : NetworkBehaviour
     [SerializeField] public Transform bulletTrail;
     [SerializeField] public float range = 100f;
     [SerializeField] private float shotCoolDown = 0.2f;
+    [SerializeField] private GameObject smoke;
     public float variability = 1f;
+    int smokeCount = 2;
     
     [Networked] public bool attacking { set; get; }
 
@@ -36,6 +39,10 @@ public class Gun : NetworkBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 Shoot();
+            }
+            if (Input.GetMouseButtonDown(1) && smokeCount > 0)
+            {
+                Smoke();
             }
         }
     }
@@ -75,6 +82,12 @@ public class Gun : NetworkBehaviour
         transform.eulerAngles = originalEulerAngle;
 
         RPC_SpawnBulletTrail(gunPoint.position, transform.rotation, targetPos);
+    }
+
+    void Smoke()
+    {
+        Instantiate(smoke, transform.position, Quaternion.identity);
+        smokeCount--;
     }
 
     [Rpc]
