@@ -1,3 +1,4 @@
+using Fusion;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
@@ -5,25 +6,32 @@ using TMPro.Examples;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Gun : MonoBehaviour
+public class Gun : NetworkBehaviour
 {
     [SerializeField] public Transform gunPoint;
     [SerializeField] public Transform bulletTrail;
     [SerializeField] public float range = 100f;
     public float variability = 1f;
+    
+    [Networked] public bool attacking { set; get; }
+
+    private NetworkObject networkObject;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        networkObject = GetComponent<NetworkObject>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (networkObject.HasInputAuthority)
         {
-            Shoot();
+            if (Input.GetMouseButtonDown(0))
+            {
+                Shoot();
+            }
         }
     }
 
@@ -42,12 +50,14 @@ public class Gun : MonoBehaviour
         Transform trail = Instantiate(bulletTrail, gunPoint.position, transform.rotation);
         BulletTrailScript trailScript = trail.GetComponent<BulletTrailScript>();
 
-        
 
         if(hit.collider != null)
         {
             trailScript.SetTargetPosition(hit.point);
-            //code here for hit target
+            if (hit.collider.gameObject.transform.parent.tag == "Player" && hit.collider.gameObject.GetComponentInParent<Gun>().attacking != attacking)
+            {
+                hit.collider.gameObject.GetComponentInParent<PlayerLife>().UpdateHealth(30);
+            }
         }
         else
         {

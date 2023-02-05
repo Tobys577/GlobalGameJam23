@@ -149,7 +149,7 @@ public class CharacterSelectionScreen : NetworkBehaviour
     {
         NetworkObject player = basicSpawner.SpawnPlayer();
         player.GetComponent<PlayerMovement>().bodySprite.sprite = characters[characterID].characterSprite;
-
+        player.GetComponent<Gun>().attacking = isAttackingSide;
         gameObject.SetActive(false);
     }
 

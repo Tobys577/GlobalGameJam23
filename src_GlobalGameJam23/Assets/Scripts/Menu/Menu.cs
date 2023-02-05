@@ -11,6 +11,8 @@ public class Menu : MonoBehaviour
 
     private void Start()
     {
+        Debug.developerConsoleVisible = true;
+
         usernameInputField.text = PlayerPrefs.GetString("Player");
     }
 
