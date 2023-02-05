@@ -9,6 +9,7 @@ using TMPro;
 public class RoundManagement : NetworkBehaviour
 {
     public GameObject uiParent;
+    public TMP_Text roundText;
 
     public GameObject countDownPanel;
     public TMP_Text countDownText;
@@ -18,6 +19,8 @@ public class RoundManagement : NetworkBehaviour
 
     [HideInInspector]
     [Networked] public int Countdown { set; get; }
+
+    private char[] rounds;
 
     public Dictionary<KeyValuePair<bool, int>, NetworkObject> playerObjects = new Dictionary<KeyValuePair<bool, int>, NetworkObject>();
 
@@ -29,6 +32,8 @@ public class RoundManagement : NetworkBehaviour
     private BasicSpawner basicSpawner;
 
     public int currentRound = 0;
+
+    bool playing = false;
 
     public void Start()
     {
@@ -53,6 +58,11 @@ public class RoundManagement : NetworkBehaviour
         {
             barriers[i] = barriersObj.transform.GetChild(i).gameObject;
         }
+
+        rounds = new char[] { 'x', 'x', 'x', 'x', 'x' };
+
+        if(isHost)
+            RPC_ResetRounds(rounds);
     }
 
     public void StartRound()
@@ -70,6 +80,7 @@ public class RoundManagement : NetworkBehaviour
     {
         Countdown = roundCountDownTime;
 
+        playing = false;
         RPC_SetBarriers(true);
 
         while(Countdown > 0)
@@ -78,7 +89,29 @@ public class RoundManagement : NetworkBehaviour
             Countdown--;
         }
 
+        playing = true;
         RPC_SetBarriers(false);
+    }
+
+    bool winStateCheck(bool attacking)
+    {
+        foreach(KeyValuePair<KeyValuePair<bool, int>, NetworkObject> playerDictKeyValuePair in playerObjects)
+        {
+            if (playerDictKeyValuePair.Value != null) { 
+                if(playerDictKeyValuePair.Key.Key != attacking)
+                {
+                    return false;
+                } else
+                {
+                    print(playerDictKeyValuePair.Value);
+                }
+            } else
+            {
+                print("is null");
+            }
+        }
+
+        return true;
     }
 
     private void Update()
@@ -87,6 +120,43 @@ public class RoundManagement : NetworkBehaviour
         {
             countDownText.text = Countdown.ToString();
         }
+
+        string roundTextMsg = "";
+
+        for(int i = 0; i < rounds.Length; i++)
+        {
+            switch(rounds[i])
+            {
+                case 'x':
+                    roundTextMsg += "X";
+                    break;
+                case 'a':
+                    roundTextMsg += basicSpawner.characterSelectionScreen.isAttackingSide ? "W" : "L";
+                    break;
+                case 'd':
+                    roundTextMsg += basicSpawner.characterSelectionScreen.isAttackingSide ? "L" : "W";
+                    break;
+            }
+
+            if (rounds.Length - 1 != i)
+                roundTextMsg += " ~ ";
+        }
+
+        if (isHost && playing)
+        {
+            if (winStateCheck(true))
+            {
+                EndRound('a');
+            }
+
+
+            if (winStateCheck(false))
+            {
+                EndRound('d');
+            }
+        }
+
+        roundText.text = roundTextMsg;
     }
 
     public void callSpawnPlayers()
@@ -121,19 +191,59 @@ public class RoundManagement : NetworkBehaviour
         player.GetComponent<PlayerMovement>().bodySprite.sprite = basicSpawner.characterSelectionScreen.characters[
             basicSpawner.characterSelectionScreen.characterID].characterSprite;
         player.GetComponent<Gun>().attacking = basicSpawner.characterSelectionScreen.isAttackingSide;
+        player.GetComponent<PlayerLife>().diedCanvas = basicSpawner.diedCanvas;
         RPC_AddPlayerDict(isAttacking, sideId, player.Id);
     }
 
     [Rpc]
-    public void RPC_AddPlayerDict(bool attacking, int id, NetworkId netId)
+    public void RPC_AddPlayerDict(bool attacking, int id, NetworkId netId) 
     {
-        playerObjects.Add(new KeyValuePair<bool, int>(attacking, id), Runner.FindObject(netId));
+        KeyValuePair<bool, int> key = new KeyValuePair<bool, int>(attacking, id);
+        if (playerObjects.ContainsKey(key)) {
+            playerObjects[key] = Runner.FindObject(netId);
+        } else {
+            playerObjects.Add(key, Runner.FindObject(netId));
+        }
         print("Played added: " + playerObjects.Count.ToString());
     }
 
-    void EndRound()
+    [Rpc]
+    public void RPC_ResetRounds(char[] newRounds)
     {
-        uiParent.SetActive(false);
+        rounds = newRounds;
+    }
+
+    IEnumerator startNextRound()
+    {
+        yield return new WaitForSeconds(3);
+        StartRound();
+    }
+
+    void EndRound(char thisRoundWin)
+    {
+        if (!playing)
+            return;
+
+        playing = false;
+        print("Round ended!");
+        rounds[currentRound] = thisRoundWin;
+        RPC_ResetRounds(rounds);
         currentRound++;
+
+        foreach (KeyValuePair<KeyValuePair<bool, int>, NetworkObject> playerDictKeyValuePair in playerObjects)
+        {
+            if (playerDictKeyValuePair.Value != null)
+            {
+                playerDictKeyValuePair.Value.GetComponent<PlayerLife>().callDieNoCanvas();
+                print("Killed 1");
+            }
+        }
+
+        StartCoroutine(startNextRound());
+
+        if (currentRound == 5)
+        {
+            basicSpawner.ExitToMenu();
+        }
     }
 }

@@ -25,14 +25,14 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
     [SerializeField]
     private GameObject connectingObj;
 
-    private Dictionary<PlayerRef, NetworkObject> spawnedCharacters = new Dictionary<PlayerRef, NetworkObject>();
-
     private NetworkRunner runner;
 
     [HideInInspector] public CharacterSelectionScreen characterSelectionScreen;
     [HideInInspector] public RoundManagement roundManagementScreen;
 
     [HideInInspector] public int timer = 120;
+
+    public GameObject diedCanvas;
 
     private Dictionary<int, KeyValuePair<bool, int>> playerCountDict = new Dictionary<int, KeyValuePair<bool, int>>()
     {
@@ -46,12 +46,20 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
 
     private void Start()
     {
+        diedCanvas.SetActive(false);
+
         StartGame();
     }
 
     public void StartGame()
     {
         StartGame(GameMode.Shared);
+    }
+
+    public void ExitToMenu()
+    {
+        runner.Shutdown();
+        SceneManager.LoadScene("Menu");
     }
 
     private async void StartGame(GameMode mode)
@@ -105,8 +113,7 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
 
         if (runner.SessionInfo.PlayerCount <= 1)
         {
-            runner.Shutdown();
-            SceneManager.LoadScene("Menu");
+            ExitToMenu();
         } else
         {
             characterSelectionScreen.callSpawnPlayers();
@@ -189,18 +196,13 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
     public NetworkObject SpawnPlayer(Vector2 location)
     {
         NetworkObject networkPlayerObject = runner.Spawn(playerPrefabRef, location, Quaternion.identity, runner.LocalPlayer);
-        spawnedCharacters.Add(runner.LocalPlayer, networkPlayerObject);
 
         return networkPlayerObject;
     }
 
     public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
     {
-        if (spawnedCharacters.TryGetValue(player, out NetworkObject outedNetworkObject))
-        {
-            runner.Despawn(outedNetworkObject);
-            spawnedCharacters.Remove(player);
-        }
+
     }
 
     public void OnReliableDataReceived(NetworkRunner runner, PlayerRef player, ArraySegment<byte> data)
