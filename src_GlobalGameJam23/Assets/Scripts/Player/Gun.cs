@@ -11,6 +11,7 @@ public class Gun : MonoBehaviour
     [SerializeField] public Transform bulletTrail;
     [SerializeField] public float range = 100f;
     public float variability = 1f;
+    bool attacking = true;
 
     // Start is called before the first frame update
     void Start()
@@ -46,8 +47,14 @@ public class Gun : MonoBehaviour
 
         if(hit.collider != null)
         {
+            Debug.Log("hit something");
+            Debug.Log(hit.collider.name);
             trailScript.SetTargetPosition(hit.point);
-            //code here for hit target
+            if(hit.collider.gameObject.tag == "Player" && attacking)
+            {
+                hit.collider.gameObject.GetComponentInParent<PlayerLife>().UpdateHealth(30);
+                Debug.Log("damaged player");
+            }
         }
         else
         {
