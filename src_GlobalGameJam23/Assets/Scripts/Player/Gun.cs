@@ -86,7 +86,7 @@ public class Gun : NetworkBehaviour
 
     void Smoke()
     {
-        Instantiate(smoke, transform.position, Quaternion.identity);
+        RPC_SpawnSmoke(transform.position);
         smokeCount--;
     }
 
@@ -96,5 +96,11 @@ public class Gun : NetworkBehaviour
         Transform trail = Instantiate(bulletTrail, pos, ang);
         trailScript = trail.GetComponent<BulletTrailScript>();
         trailScript.SetTargetPosition(targetPos);
+    }
+
+    [Rpc]
+    public void RPC_SpawnSmoke(Vector2 pos)
+    {
+        Instantiate(smoke, pos, Quaternion.identity);
     }
 }
