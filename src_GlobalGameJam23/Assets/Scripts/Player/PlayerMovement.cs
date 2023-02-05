@@ -22,7 +22,7 @@ public class PlayerMovement : NetworkBehaviour
 
         mainCamera = FindObjectOfType<Camera>();
 
-        fieldOfView = GameObject.Find("FieldOfView").GetComponent<FieldOfView>();
+        //fieldOfView = GameObject.Find("FieldOfView").GetComponent<FieldOfView>();
     }
 
     private void Update()

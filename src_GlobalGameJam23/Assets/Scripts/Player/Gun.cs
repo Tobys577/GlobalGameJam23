@@ -12,6 +12,10 @@ public class Gun : NetworkBehaviour
     [SerializeField] public Transform bulletTrail;
     [SerializeField] public float range = 100f;
     public float variability = 1f;
+    
+    [Networked] public bool attacking { set; get; }
+
+    private NetworkObject networkObject;
 
     [Networked] public bool attacking { set; get; }
 
