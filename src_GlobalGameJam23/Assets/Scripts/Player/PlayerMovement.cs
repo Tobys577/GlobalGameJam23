@@ -14,7 +14,7 @@ public class PlayerMovement : NetworkBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         networkObject = GetComponent<NetworkObject>();
-        fieldOfView = GameObject.Find("FieldOfView").GetComponent<FieldOfView>();
+        //fieldOfView = GameObject.Find("FieldOfView").GetComponent<FieldOfView>();
     }
 
     private void Update()
@@ -24,8 +24,8 @@ public class PlayerMovement : NetworkBehaviour
             rb.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, Input.GetAxis("Vertical") * speed);
         }
         faceMouse();
-        fieldOfView.SetDirection(transform.up);
-        fieldOfView.SetOrigin(transform.position);
+        //fieldOfView.SetDirection(transform.up);
+        //fieldOfView.SetOrigin(transform.position);
     }
 
     float AngleBetweenTwoPoints(Vector3 a, Vector3 b)
