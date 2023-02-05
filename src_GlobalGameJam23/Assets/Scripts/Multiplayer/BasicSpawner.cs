@@ -20,13 +20,17 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
     private NetworkPrefabRef characterSelectionScreenPref;
 
     [SerializeField]
+    private NetworkPrefabRef roundManagementScreenPref;
+
+    [SerializeField]
     private GameObject connectingObj;
 
     private Dictionary<PlayerRef, NetworkObject> spawnedCharacters = new Dictionary<PlayerRef, NetworkObject>();
 
     private NetworkRunner runner;
 
-    private CharacterSelectionScreen characterSelectionScreen;
+    [HideInInspector] public CharacterSelectionScreen characterSelectionScreen;
+    [HideInInspector] public RoundManagement roundManagementScreen;
 
     [HideInInspector] public int timer = 120;
 
@@ -158,6 +162,10 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
             print("count down started");
             NetworkObject networkedCharacterSelection = runner.Spawn(characterSelectionScreenPref, Vector2.zero, Quaternion.identity, runner.LocalPlayer);
             characterSelectionScreen = networkedCharacterSelection.GetComponent<CharacterSelectionScreen>();
+
+            NetworkObject networkedRoundManagement = runner.Spawn(roundManagementScreenPref, Vector2.zero, Quaternion.identity, runner.LocalPlayer);
+            roundManagementScreen = networkedRoundManagement.GetComponent<RoundManagement>();
+            roundManagementScreen.isHost = true;
             StartCoroutine(timerCountDown());
         }
         else
@@ -177,9 +185,9 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
     }
 
     [ContextMenu("Spawn Player")]
-    public NetworkObject SpawnPlayer()
+    public NetworkObject SpawnPlayer(Vector2 location)
     {
-        NetworkObject networkPlayerObject = runner.Spawn(playerPrefabRef, Vector2.zero, Quaternion.identity, runner.LocalPlayer);
+        NetworkObject networkPlayerObject = runner.Spawn(playerPrefabRef, location, Quaternion.identity, runner.LocalPlayer);
         spawnedCharacters.Add(runner.LocalPlayer, networkPlayerObject);
 
         return networkPlayerObject;
