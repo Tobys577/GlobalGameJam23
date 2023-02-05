@@ -218,6 +218,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
   uiParent: {fileID: 4273156285003147450}
+  countDownPanel: {fileID: 3319046830860154590}
+  countDownText: {fileID: 8063373468295183105}
+  roundCountDownTime: 15
+  _Countdown: 0
   isHost: 0
   currentRound: 0
 --- !u!1 &346159657612555755

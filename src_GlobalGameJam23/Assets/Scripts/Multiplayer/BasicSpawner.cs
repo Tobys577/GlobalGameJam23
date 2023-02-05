@@ -110,6 +110,7 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
         } else
         {
             characterSelectionScreen.callSpawnPlayers();
+            runner.SessionInfo.IsOpen = false;
         }
     }
 
