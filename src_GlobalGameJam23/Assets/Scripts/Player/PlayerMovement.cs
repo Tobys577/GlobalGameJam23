@@ -46,4 +46,15 @@ public class PlayerMovement : NetworkBehaviour
         direction.Normalize();
         transform.up = direction;
     }
+
+    public void callChangeSprite(int sprIndex)
+    {
+        RPC_ChangeSprite(sprIndex);
+    }
+
+    [Rpc]
+    public void RPC_ChangeSprite(int spr)
+    {
+        bodySprite.sprite = FindObjectOfType<BasicSpawner>().characterSelectionScreen.characters[spr].characterSprite;
+    }
 }

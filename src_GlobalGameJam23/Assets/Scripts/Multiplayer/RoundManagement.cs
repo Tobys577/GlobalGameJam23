@@ -188,8 +188,7 @@ public class RoundManagement : NetworkBehaviour
         bool isAttacking = basicSpawner.characterSelectionScreen.isAttackingSide;
         int sideId = basicSpawner.characterSelectionScreen.iconNumber;
         NetworkObject player = basicSpawner.SpawnPlayer(isAttacking ? attackSideSpawnPoints[sideId].position : defenceSideSpawnPoints[sideId].position);
-        player.GetComponent<PlayerMovement>().bodySprite.sprite = basicSpawner.characterSelectionScreen.characters[
-            basicSpawner.characterSelectionScreen.characterID].characterSprite;
+        player.GetComponent<PlayerMovement>().callChangeSprite(basicSpawner.characterSelectionScreen.characterID);
         player.GetComponent<Gun>().attacking = basicSpawner.characterSelectionScreen.isAttackingSide;
         player.GetComponent<PlayerLife>().diedCanvas = basicSpawner.diedCanvas;
         RPC_AddPlayerDict(isAttacking, sideId, player.Id);
