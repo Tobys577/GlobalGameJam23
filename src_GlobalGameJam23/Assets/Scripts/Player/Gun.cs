@@ -17,10 +17,6 @@ public class Gun : NetworkBehaviour
 
     private NetworkObject networkObject;
 
-    [Networked] public bool attacking { set; get; }
-
-    private NetworkObject networkObject;
-
     // Start is called before the first frame update
     void Start()
     {
