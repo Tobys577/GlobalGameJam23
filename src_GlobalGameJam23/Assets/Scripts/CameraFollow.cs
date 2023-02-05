@@ -1,3 +1,4 @@
+using Fusion;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,7 +9,14 @@ public class CameraFollow : MonoBehaviour
 
     private void Start()
     {
-        cam = Camera.main;
+        NetworkObject networkObject = GetComponent<NetworkObject>();
+        if (networkObject.HasStateAuthority)
+        {
+            cam = FindObjectOfType<Camera>();
+        } else
+        {
+            Destroy(this);
+        }
     }
     void Update()
     {

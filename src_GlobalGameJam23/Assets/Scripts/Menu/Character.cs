@@ -6,6 +6,6 @@ using UnityEngine;
 public struct Character
 {
     public Sprite icon;
-
+    public Sprite characterSprite;
     public string characterName;
 }
