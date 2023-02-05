@@ -17,6 +17,10 @@ public class Gun : NetworkBehaviour
 
     private NetworkObject networkObject;
 
+    [Networked] public bool attacking { set; get; }
+
+    private NetworkObject networkObject;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,7 +42,7 @@ public class Gun : NetworkBehaviour
     void Shoot()
     {
         bool moving = false;
-        if(Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+        if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
         {
             moving = true;
         }
@@ -46,12 +50,12 @@ public class Gun : NetworkBehaviour
         Vector3 originalEulerAngle = transform.eulerAngles;
         transform.eulerAngles = new Vector3(0, 0, moving ? Random.Range(transform.eulerAngles.z - 10, transform.eulerAngles.z + 10) : transform.eulerAngles.z);
 
-        RaycastHit2D hit = Physics2D.Raycast(gunPoint.position, transform.up ,range);
+        RaycastHit2D hit = Physics2D.Raycast(gunPoint.position, transform.up, range);
         Transform trail = Instantiate(bulletTrail, gunPoint.position, transform.rotation);
         BulletTrailScript trailScript = trail.GetComponent<BulletTrailScript>();
 
 
-        if(hit.collider != null)
+        if (hit.collider != null)
         {
             trailScript.SetTargetPosition(hit.point);
             if (hit.collider.gameObject.transform.parent.tag == "Player" && hit.collider.gameObject.GetComponentInParent<Gun>().attacking != attacking)

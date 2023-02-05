@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 818022264175256862}
   m_Layer: 0
   m_Name: Body
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -148,7 +148,11 @@ GameObject:
   - component: {fileID: 1348489937345962676}
   - component: {fileID: 283182527594829747}
   - component: {fileID: 4505328852570069679}
+<<<<<<< HEAD
   - component: {fileID: 2095149622359776347}
+=======
+  - component: {fileID: 2619602143587056150}
+>>>>>>> main
   m_Layer: 0
   m_Name: PlayerPrefab
   m_TagString: Player
@@ -198,7 +202,11 @@ MonoBehaviour:
   - {fileID: 5216615891583800830}
   - {fileID: 1348489937345962676}
   - {fileID: 283182527594829747}
+<<<<<<< HEAD
   - {fileID: 2095149622359776347}
+=======
+  - {fileID: 2619602143587056150}
+>>>>>>> main
   SimulationBehaviours: []
 --- !u!114 &5216615891583800830
 MonoBehaviour:
@@ -295,7 +303,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 0}
+<<<<<<< HEAD
 --- !u!114 &2095149622359776347
+=======
+--- !u!114 &2619602143587056150
+>>>>>>> main
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
