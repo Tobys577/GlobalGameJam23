@@ -197,6 +197,8 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 5216615891583800830}
   - {fileID: 1348489937345962676}
+  - {fileID: 283182527594829747}
+  - {fileID: 2619602143587056150}
   SimulationBehaviours: []
 --- !u!114 &5216615891583800830
 MonoBehaviour:
@@ -274,10 +276,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1418dd477a50c94b91b6c62654e3c76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
   gunPoint: {fileID: 283182527441100302}
   bulletTrail: {fileID: 2320423680087566305, guid: f49f58b2a21de5146ad343db470688be, type: 3}
   range: 10
   variability: 1
+  _attacking: 0
 --- !u!114 &4505328852570069679
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -303,6 +307,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c06afa0d5fe3447b7933c552c858a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
+  health: 100
 --- !u!1 &5939605519486204445
 GameObject:
   m_ObjectHideFlags: 0
