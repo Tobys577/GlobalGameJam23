@@ -54,7 +54,7 @@ public class Gun : NetworkBehaviour
         }
 
         Vector3 originalEulerAngle = transform.eulerAngles;
-        transform.eulerAngles = new Vector3(0, 0, moving ? Random.Range(transform.eulerAngles.z - 10, transform.eulerAngles.z + 10) : transform.eulerAngles.z);
+        transform.eulerAngles = new Vector3(0, 0, moving ? Random.Range(transform.eulerAngles.z - 25, transform.eulerAngles.z + 25) : transform.eulerAngles.z);
 
         RaycastHit2D hit = Physics2D.Raycast(gunPoint.position, transform.up, range);
         Vector2 targetPos = Vector2.zero;
