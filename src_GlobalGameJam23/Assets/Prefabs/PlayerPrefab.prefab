@@ -254,7 +254,7 @@ MonoBehaviour:
   shotCoolDown: 0.2
   variability: 1
   _attacking: 0
-  lastShot: 0
+  lastShot: 0.35
 --- !u!114 &388440633251533506
 MonoBehaviour:
   m_ObjectHideFlags: 0
